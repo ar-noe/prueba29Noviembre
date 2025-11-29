@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Cba" Class="DataClassesCbaDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=AMELIA\PROYECTOCBA;Initial Catalog=Cba;Persist Security Info=True;User ID=sa;Pooling=False" SettingsObjectName="HOLACHICOS.Properties.Settings" SettingsPropertyName="CbaConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Persona" Member="Persona">
+    <Type Name="Persona">
+      <Column Name="IdPersona" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CI" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Nombres" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ApPat" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="ApMat" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="FechaNac" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="IdTipoPersona" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Persona_Estudiante" Member="Estudiante" ThisKey="IdPersona" OtherKey="IdPersona" Type="Estudiante" />
+      <Association Name="Persona_Usuario" Member="Usuario" ThisKey="IdPersona" OtherKey="IdPersona" Type="Usuario" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Estudiante" Member="Estudiante">
+    <Type Name="Estudiante">
+      <Column Name="IdEstudiante" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IdPersona" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdBeca" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Persona_Estudiante" Member="Persona" ThisKey="IdPersona" OtherKey="IdPersona" Type="Persona" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Usuario" Member="Usuario">
+    <Type Name="Usuario">
+      <Column Name="IdUsuario" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Correo" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Contraseña" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="IdRol" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdPersona" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Persona_Usuario" Member="Persona" ThisKey="IdPersona" OtherKey="IdPersona" Type="Persona" IsForeignKey="true" />
+      <Association Name="Rol_Usuario" Member="Rol" ThisKey="IdRol" OtherKey="IdRol" Type="Rol" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Rol" Member="Rol">
+    <Type Name="Rol">
+      <Column Name="IdRol" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Association Name="Rol_Usuario" Member="Usuario" ThisKey="IdRol" OtherKey="IdRol" Type="Usuario" />
+    </Type>
+  </Table>
+</Database>
